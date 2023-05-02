@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+  }
+  
+  body {
+    color: white;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  * {
+    font-family: "Helvetica Neue", sans-serif;
+  }
+  
