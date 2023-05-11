@@ -1,16 +1,9 @@
 body {
-    background-color: black;
+    background-color: rgb(49, 49, 49);
   }
   
   body {
-    color: white;
-  }
-
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    color: rgb(153, 140, 19);
   }
 
   a {
