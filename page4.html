@@ -1,0 +1,149 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="CV logo.jpg">
+
+  <title>Pong Game</title>
+  <style>
+    #gameCanvas {
+      border: 1px solid #ffffff;
+    }
+  </style>
+</head>
+<body>
+    <a href="index.html" >Home</a><br>
+        <a href="page1.html" >Fruits</a><br>
+        <a href="page2.html" >Countries</a><br>
+        <a href="page3.html" >Sports</a><br>
+        <a href="page4.html" >Pong</a><br>
+        <br>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  <script>
+    // Initialize the canvas and context
+    const canvas = document.getElementById('gameCanvas');
+    const context = canvas.getContext('2d');
+
+    // Paddle variables
+    const paddleWidth = 10;
+    const paddleHeight = 80;
+    let paddle1Y = canvas.height / 2 - paddleHeight / 2;
+    let paddle2Y = canvas.height / 2 - paddleHeight / 2;
+    let paddle1YChange = 0;
+    const paddleSpeed = 6;
+
+    // Ball variables
+    let ballX = canvas.width / 2;
+    let ballY = canvas.height / 2;
+    let ballSpeedX = -5;
+    let ballSpeedY = -2;
+
+    // Key event listeners
+    document.addEventListener('keydown', keyDownHandler);
+    document.addEventListener('keyup', keyUpHandler);
+
+    // Handle key down event
+    function keyDownHandler(event) {
+      if (event.key === 'ArrowUp') {
+        paddle1YChange = -paddleSpeed;
+      } else if (event.key === 'ArrowDown') {
+        paddle1YChange = paddleSpeed;
+      }
+    }
+
+    // Handle key up event
+    function keyUpHandler(event) {
+      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        paddle1YChange = 0;
+      }
+    }
+
+    // Main game loop
+    function gameLoop() {
+      movePaddle1();
+      movePaddle2();
+      moveBall();
+      draw();
+    }
+
+    // Move the first paddle based on user input
+    function movePaddle1() {
+      paddle1Y += paddle1YChange;
+
+      // Limit the paddle movement within the canvas
+      if (paddle1Y < 0) {
+        paddle1Y = 0;
+      } else if (paddle1Y + paddleHeight > canvas.height) {
+        paddle1Y = canvas.height - paddleHeight;
+      }
+    }
+
+    // Move the second paddle automatically
+    function movePaddle2() {
+      const paddle2YCenter = paddle2Y + paddleHeight / 2;
+      if (paddle2YCenter < ballY - 35) {
+        paddle2Y += 6;
+      } else if (paddle2YCenter > ballY + 35) {
+        paddle2Y -= 6;
+      }
+    }
+
+    // Move the ball
+    function moveBall() {
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      // Ball collision with paddles
+      if (ballX < 20 + paddleWidth) {
+        if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+        } else {
+          resetBall();
+        }
+      }
+
+      if (ballX > canvas.width - 20 - paddleWidth) {
+        if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+        } else {
+          resetBall();
+        }
+      }
+
+      // Ball collision with walls
+      if (ballY < 0 || ballY > canvas.height) {
+        ballSpeedY = -ballSpeedY;
+      }
+    }
+
+    // Reset the ball position and speed
+    function resetBall() {
+      ballX = canvas.width / 2;
+      ballY = canvas.height / 2;
+      ballSpeedX = -ballSpeedX;
+      ballSpeedY = -ballSpeedY;
+    }
+
+    // Draw the game elements on the canvas
+    function draw() {
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw paddles
+      context.fillRect(10, paddle1Y, paddleWidth, paddleHeight);
+      context.fillRect(canvas.width - paddleWidth - 10, paddle2Y, paddleWidth, paddleHeight);
+
+      // Draw ball
+      context.beginPath();
+      context.arc(ballX, ballY, 10, 0, Math.PI * 2);
+      context.fill();
+      context.closePath();
+    }
+
+    // Start the game loop
+    setInterval(gameLoop, 1000 / 60);
+  </script>
+</body>
+</html>
