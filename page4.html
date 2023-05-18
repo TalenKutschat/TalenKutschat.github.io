@@ -1,25 +1,26 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="shortcut icon" href="CV logo.jpg">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="CV logo.jpg">
 
   <title>Pong Game</title>
   <style>
     #gameCanvas {
       border: 1px solid #ffffff;
+      background-color: black; /* Add this line to set the canvas background color to black */
     }
   </style>
 </head>
 <body>
-    <a href="index.html" >Home</a><br>
-        <a href="page1.html" >Fruits</a><br>
-        <a href="page2.html" >Countries</a><br>
-        <a href="page3.html" >Sports</a><br>
-        <a href="page4.html" >Pong</a><br>
-        <br>
+  <a href="index.html" >Home</a><br>
+  <a href="page1.html" >Fruits</a><br>
+  <a href="page2.html" >Countries</a><br>
+  <a href="page3.html" >Sports</a><br>
+  <a href="page4.html" >Pong</a><br>
+  <br>
   <canvas id="gameCanvas" width="800" height="400"></canvas>
   <script>
     // Initialize the canvas and context
@@ -130,6 +131,9 @@
     function draw() {
       // Clear the canvas
       context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Set the color to white
+      context.fillStyle = 'white';
 
       // Draw paddles
       context.fillRect(10, paddle1Y, paddleWidth, paddleHeight);
